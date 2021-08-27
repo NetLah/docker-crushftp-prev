@@ -38,8 +38,11 @@ fi
 
 echo "$(date '+%d/%m/%Y %H:%M:%S') Starting..."
 
-chmod +x crushftp_init.sh
-./crushftp_init.sh start
+#chmod +x crushftp_init.sh
+#./crushftp_init.sh start
+echo -n "Starting CrushFTP... "
+java -Xmx512m -jar CrushFTP.jar -d & >/dev/null 2>&1
+echo OK
 
 echo "$(date '+%d/%m/%Y %H:%M:%S') Waiting..."
 
@@ -57,10 +60,7 @@ echo "########################################"
 # SIGTERM-handler
 term_handler() {
     echo "# Stopping:   $(date '+%d/%m/%Y %H:%M:%S')"
-    PS="ps"
-    AWK="awk"
-    GREP="grep"
-    CRUSH_PID="`$PS -a | $GREP java | $GREP $CRUSH_FTP_BASE_DIR | $AWK '{print $1}'`"
+    CRUSH_PID="`ps -a | grep "java" | grep "CrushFTP.jar" | awk '{print $1}'`"
     #echo "# CRUSH_PID:  ${CRUSH_PID}"
 
     echo -n "Shutting down CrushFTP... "
