@@ -32,10 +32,10 @@ if [[ ! -d ${CRUSH_FTP_BASE_DIR}/users/MainUsers/${CRUSH_ADMIN_USER} ]] || [[ ! 
     touch ${CRUSH_FTP_BASE_DIR}/admin_user_set
 fi
 
-chmod +x crushftp_init.sh
+chmod +x $CRUSH_FTP_BASE_DIR/crushftp_init.sh
 ${CRUSH_FTP_BASE_DIR}/crushftp_init.sh start
 
-until [ -f prefs.XML ]
+until [ -f $CRUSH_FTP_BASE_DIR/prefs.XML ]
 do
      sleep 1
 done
