@@ -52,4 +52,33 @@ echo "# User:       ${CRUSH_ADMIN_USER}"
 echo "# Password:   ${CRUSH_ADMIN_PASSWORD}"
 echo "########################################"
 
-while true; do sleep 86400; done
+# SIGTERM-handler
+term_handler() {
+    echo "# Stopping:   $(date '+%d/%m/%Y %H:%M:%S')"
+    PS="ps"
+    AWK="awk"
+    GREP="grep"
+    CRUSH_PID="`$PS -a | $GREP java | $GREP $CRUSH_FTP_BASE_DIR | $AWK '{print $1}'`"
+    #echo "# CRUSH_PID:  ${CRUSH_PID}"
+
+    echo -n "Shutting down CrushFTP... "
+    kill $CRUSH_PID
+    ret_val=$?
+    if [ ${ret_val} -ne 0 ]; then
+        echo FAIL
+        echo could not kill PID
+        exit 1
+    fi 
+    
+    echo OK
+    echo "# Stopped:    $(date '+%d/%m/%Y %H:%M:%S')"
+    exit 0
+}
+
+trap 'term_handler' SIGTERM
+
+while true
+do
+    sleep 60m &
+    wait $!
+done
