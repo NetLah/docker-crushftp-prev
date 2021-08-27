@@ -26,7 +26,7 @@ if [ -z ${CRUSH_ADMIN_PORT} ]; then
     CRUSH_ADMIN_PORT=8080
 fi
 
-if [[ ! -d ${CRUSH_FTP_BASE_DIR}/users/MainUsers/${CRUSH_ADMIN_USER} ]] || [[ -f ${CRUSH_FTP_BASE_DIR}/admin_user_set ]] ; then
+if [[ ! -d ${CRUSH_FTP_BASE_DIR}/users/MainUsers/${CRUSH_ADMIN_USER} ]] || [[ ! -f ${CRUSH_FTP_BASE_DIR}/admin_user_set ]] ; then
     echo "Creating default admin..."
     cd ${CRUSH_FTP_BASE_DIR} && java -jar ${CRUSH_FTP_BASE_DIR}/CrushFTP.jar -a "${CRUSH_ADMIN_USER}" "${CRUSH_ADMIN_PASSWORD}"
     touch ${CRUSH_FTP_BASE_DIR}/admin_user_set
