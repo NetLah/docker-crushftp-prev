@@ -41,8 +41,8 @@ do
 done
 
 echo "########################################"
-echo "# User:		${CRUSH_ADMIN_USER}"
-echo "# Password:	${CRUSH_ADMIN_PASSWORD}"
+echo "# User:       ${CRUSH_ADMIN_USER}"
+echo "# Password:   ${CRUSH_ADMIN_PASSWORD}"
 echo "########################################"
 
 while true; do sleep 86400; done
